@@ -1,1 +1,15 @@
+name: PR Check Demo
+
+# Trigger this workflow when a pull request is opened or updated
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  hello-world:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print a message
+        run: echo "👋 Hello Aryan! A pull request was opened."
 
