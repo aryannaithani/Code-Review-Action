@@ -52,7 +52,13 @@ if response.status_code == 200:
 
     prompt += "\n-------\nTASK: Provide a concise review of the changes, highlight potential issues, improvements and summarize what this PR id doing."
 
-    print(prompt)
+    client = OpenAI(api_key="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")
+
+    resp = client.chat.completions.create(model="gpt-4o-mini",messages=[{"role": "user", "content": prompt}],)
+
+    print("==== LLM REVIEW START ====")
+    print(resp.choices[0].message.content.strip())
+    print("==== LLM REVIEW END ====")
 else:
     print(f"Failed to fetch PR diff: {response.status_code}")
     print(response.text)
