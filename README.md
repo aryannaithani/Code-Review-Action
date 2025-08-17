@@ -1,7 +1,6 @@
-hello
-i just added this line for fun :)
+heyaaaa
 
 please work ffs
 goated if it works now
 
-yayayayayayay
+ill just keep editing this readme
