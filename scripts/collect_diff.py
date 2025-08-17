@@ -21,8 +21,13 @@ if response.status_code == 200:
     diff = response.text
     added_lines = []
     removed_lines = []
+    file_paths = set()
     for line in diff.splitlines():
-        if line.startswith("+") and not line.startswith("+++"):
+        if line.startswith("+++ b/"):
+            file_paths.add(line[6:])
+        elif line.startswith("--- a/"):
+            file_paths.add(line[6:])
+        elif line.startswith("+") and not line.startswith("+++"):
             added_lines.append(line[1:])
         elif line.startswith("-") and not line.startswith("---"):
             removed_lines.append(line[1:])
@@ -34,6 +39,15 @@ if response.status_code == 200:
         print("==== REMOVED LINES ====")
         for line in removed_lines:
             print(line)
+    print("==== ORIGINAL FILES ====")
+    for file in file_paths:
+        file_url = f"https://raw.githubusercontent.com/{REPO}/main/{file}"
+        file_resp = requests.get(file_url, headers=headers)
+        if file_resp.status_code == 200:
+            print(f"\n--- {file} ---")
+            print(file_resp.text[:500])  # print first 500 chars for safety
+        else:
+            print(f"Could not fetch original {file}")
 
     # (Later we’ll send this diff to the LLM for analysis)
 else:
