@@ -36,20 +36,21 @@ if response.status_code == 200:
     prompt = f"""
     You are reviewing a pull request.
     ## Original File(s) ##
-    
     """
     for file in file_paths:
         file_url = f"https://raw.githubusercontent.com/{repo}/main/{file}"
         file_resp = requests.get(file_url, headers=headers)
         if file_resp.status_code == 200:
-            prompt += f"\n--- {file} ---\n{file_resp.text}\n"  # print first 500 chars for safety
+            prompt += f"\n--- {file} ---\n{file_resp.text}\n"
         else:
             print(f"Could not fetch original {file}")
 
     if added_lines:
-        prompt += f"\n## Added Lines ##\n{chr(10).join(added_lines)}\n"
+        prompt += f"\n\n## Added Lines ##\n{chr(10).join(added_lines)}\n"
     if removed_lines:
-        prompt += f"\n## Removed Lines ##\n{chr(10).join(removed_lines)}\n"
+        prompt += f"\n\n## Removed Lines ##\n{chr(10).join(removed_lines)}\n"
+
+    prompt += "\n-------\nTASK: Provide a concise review of the changes, highlight potential issues, improvements and summarize what this PR id doing."
 
     print(prompt)
 else:
