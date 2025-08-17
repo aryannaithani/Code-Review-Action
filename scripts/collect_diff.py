@@ -1,4 +1,4 @@
-import os
+import os, sys
 import requests
 import google.generativeai as genai
 
@@ -56,9 +56,8 @@ if response.status_code == 200:
 
     response = model.generate_content(prompt)
 
-    print("==== LLM REVIEW START ====")
-    print(response.text)
-    print("==== LLM REVIEW END ====")
+    with open("gemini_output.txt", "w") as f:
+        f.write(response.text)
 else:
     print(f"Failed to fetch PR diff: {response.status_code}")
     print(response.text)
