@@ -1,15 +1,27 @@
 name: PR Check Demo
 
-# Trigger this workflow when a pull request is opened or updated
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [opened, synchronize]
 
 jobs:
-  hello-world:
+  pr-check:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Print a message
-        run: echo "👋 Hello Aryan! A pull request was opened."
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Collect PR diff
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: python scripts/collect_diff.py
