@@ -27,6 +27,14 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: python scripts/collect_diff.py
 
+      - name: Get Gemini output
+        id: get_output
+        run: |
+          CONTENT=$(cat gemini_output.txt)
+          echo "text<<EOF" >> $GITHUB_OUTPUT
+          echo "$CONTENT" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
       - name: Comment Gemini output on PR
         uses: peter-evans/create-or-update-comment@v4
         with:
@@ -36,11 +44,3 @@ jobs:
             ```
             ${{ steps.get_output.outputs.text }}
             ```
-
-      - name: Get Gemini output
-        id: get_output
-        run: |
-          CONTENT=$(cat gemini_output.txt)
-          echo "text<<EOF" >> $GITHUB_OUTPUT
-          echo "$CONTENT" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
