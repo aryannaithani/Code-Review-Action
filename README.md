@@ -1,6 +1,6 @@
 heyaaaa
 
 please work ffs
-goated if it works now
+plzzzzzzzzz
 
 ill just keep editing this readme
