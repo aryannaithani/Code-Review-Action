@@ -1,5 +1,6 @@
 import os
 import requests
+from openai import OpenAI
 
 # 1. Get environment variables set by GitHub Actions
 repo = os.getenv("GITHUB_REPOSITORY")     # e.g., "username/reponame"
@@ -31,25 +32,26 @@ if response.status_code == 200:
             added_lines.append(line[1:])
         elif line.startswith("-") and not line.startswith("---"):
             removed_lines.append(line[1:])
-    if added_lines:
-        print("==== ADDED LINES ====")
-        for line in added_lines:
-            print(line)
-    if removed_lines:
-        print("==== REMOVED LINES ====")
-        for line in removed_lines:
-            print(line)
-    print("==== ORIGINAL FILES ====")
+            
+    prompt = f"""
+    You are reviewing a pull request.
+    ## Original File(s) ##
+    
+    """
     for file in file_paths:
         file_url = f"https://raw.githubusercontent.com/{repo}/main/{file}"
         file_resp = requests.get(file_url, headers=headers)
         if file_resp.status_code == 200:
-            print(f"\n--- {file} ---")
-            print(file_resp.text[:500])  # print first 500 chars for safety
+            prompt += f"\n--- {file} ---\n{file_resp.text}\n"  # print first 500 chars for safety
         else:
             print(f"Could not fetch original {file}")
 
-    # (Later we’ll send this diff to the LLM for analysis)
+    if added_lines:
+        prompt += f"\n## Added Lines ##\n{chr(10).join(added_lines)}\n"
+    if removed_lines:
+        prompt += f"\n## Removed Lines ##\n{chr(10).join(removed_lines)}\n"
+
+    print(prompt)
 else:
     print(f"Failed to fetch PR diff: {response.status_code}")
     print(response.text)
