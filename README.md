@@ -1,6 +1,5 @@
 
-please work ffs
-goated if it works now
+third times a charm
 
 ill just keep editing this readme
 
