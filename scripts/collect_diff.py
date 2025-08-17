@@ -52,7 +52,7 @@ if response.status_code == 200:
 
     prompt += "\n-------\nTASK: Provide a concise review of the changes, highlight potential issues, improvements and summarize what this PR id doing."
 
-    client = OpenAI(api_key="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")
+    client = OpenAI(api_key=os.getenv("OPEN_AI_API_KEY"))
 
     resp = client.chat.completions.create(model="gpt-4o-mini",messages=[{"role": "user", "content": prompt}],)
 
