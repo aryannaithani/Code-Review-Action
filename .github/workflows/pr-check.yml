@@ -17,11 +17,11 @@ jobs:
           python-version: '3.x'
 
       - name: Install dependencies
-        run: pip install requests openai
+        run: pip install requests google-generativeai
 
       - name: Collect PR diff
         env:
-          OPEN_AI_API_KEY: ${{ secrets.OPEN_AI_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
           GITHUB_REPOSITORY: ${{ github.repository }}
