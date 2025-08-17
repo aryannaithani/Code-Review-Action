@@ -19,9 +19,13 @@ response = requests.get(url, headers=headers)
 
 if response.status_code == 200:
     diff = response.text
-    print("==== PR DIFF START ====")
-    print(diff[:1000])  # just print first 1000 chars so logs don’t blow up
-    print("==== PR DIFF END ====")
+    added_lines = []
+    for line in diff.splitlines():
+        if line.startswith("+") and not line.startswith("+++"):
+            added_lines.append(line)
+    print("==== ADDED LINES ====")
+    for line in added_lines:
+        print(line)
 
     # (Later we’ll send this diff to the LLM for analysis)
 else:
