@@ -52,7 +52,7 @@ if response.status_code == 200:
     if removed_lines:
         prompt += f"\n\n## Removed Lines ##\n{chr(10).join(removed_lines)}\n"
 
-    prompt += "\n-------\nTASK: Provide a concise review of the changes, highlight potential issues, improvements and summarize what this PR id doing.\nFormat your response in Markdown with headings, bullet points, and code blocks where relevant."
+    prompt += "\n-------\nTASK: Provide a concise review of the changes, highlight potential issues, improvements and summarize what this PR id doing.\nFormat your response in Markdown with headings, bullet points, and code blocks where relevant.\nMake use of colorful emojis to convey the goodness or badness of a change.\nIMPORTANT: at the end include a mandatory bold check if the PR should be merged or not."
 
     response = model.generate_content(prompt)
 
