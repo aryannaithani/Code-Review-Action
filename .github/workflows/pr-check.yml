@@ -26,3 +26,21 @@ jobs:
           PR_NUMBER: ${{ github.event.pull_request.number }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: python scripts/collect_diff.py
+
+      - name: Comment Gemini output on PR
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            🤖 **Gemini Review Output**  
+            ```
+            ${{ steps.get_output.outputs.text }}
+            ```
+
+      - name: Get Gemini output
+        id: get_output
+        run: |
+          CONTENT=$(cat gemini_output.txt)
+          echo "text<<EOF" >> $GITHUB_OUTPUT
+          echo "$CONTENT" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
