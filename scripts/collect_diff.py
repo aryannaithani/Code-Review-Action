@@ -41,7 +41,7 @@ if response.status_code == 200:
             print(line)
     print("==== ORIGINAL FILES ====")
     for file in file_paths:
-        file_url = f"https://raw.githubusercontent.com/{REPO}/main/{file}"
+        file_url = f"https://raw.githubusercontent.com/{repo}/main/{file}"
         file_resp = requests.get(file_url, headers=headers)
         if file_resp.status_code == 200:
             print(f"\n--- {file} ---")
