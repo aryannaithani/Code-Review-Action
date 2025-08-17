@@ -1,2 +1,1 @@
-welconme to my project, please excuse this test readme
-testing
+Welcome to this repo.
