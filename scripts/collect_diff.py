@@ -1,11 +1,13 @@
 import os
 import requests
-from openai import OpenAI
+import google.generativeai as genai
 
 # 1. Get environment variables set by GitHub Actions
 repo = os.getenv("GITHUB_REPOSITORY")     # e.g., "username/reponame"
 pr_number = os.getenv("PR_NUMBER")        # set in workflow
-token = os.getenv("GITHUB_TOKEN")         # GitHub automatically provides this
+token = os.getenv("GITHUB_TOKEN") # GitHub automatically provides this
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+model = genai.GenerativeModel("gemini-1.5-flash")
 
 # 2. GitHub API URL for the PR diff
 url = f"https://api.github.com/repos/{repo}/pulls/{pr_number}"
@@ -52,12 +54,10 @@ if response.status_code == 200:
 
     prompt += "\n-------\nTASK: Provide a concise review of the changes, highlight potential issues, improvements and summarize what this PR id doing."
 
-    client = OpenAI(api_key=os.getenv("OPEN_AI_API_KEY"))
-
-    resp = client.chat.completions.create(model="gpt-4o-mini",messages=[{"role": "user", "content": prompt}],)
+    response = model.generate_content(prompt)
 
     print("==== LLM REVIEW START ====")
-    print(resp.choices[0].message.content.strip())
+    print(response.text)
     print("==== LLM REVIEW END ====")
 else:
     print(f"Failed to fetch PR diff: {response.status_code}")
