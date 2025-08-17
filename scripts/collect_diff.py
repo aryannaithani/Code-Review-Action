@@ -20,12 +20,20 @@ response = requests.get(url, headers=headers)
 if response.status_code == 200:
     diff = response.text
     added_lines = []
+    removed_lines = []
     for line in diff.splitlines():
         if line.startswith("+") and not line.startswith("+++"):
-            added_lines.append(line)
-    print("==== ADDED LINES ====")
-    for line in added_lines:
-        print(line)
+            added_lines.append(line[1:])
+        elif line.startswith("-") and not line.startswith("---"):
+            removed_lines.append(line[1:])
+    if added_lines:
+        print("==== ADDED LINES ====")
+        for line in added_lines:
+            print(line)
+    if removed_lines:
+        print("==== REMOVED LINES ====")
+        for line in removed_lines:
+            print(line)
 
     # (Later we’ll send this diff to the LLM for analysis)
 else:
