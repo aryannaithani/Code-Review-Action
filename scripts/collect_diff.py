@@ -1,23 +1,23 @@
-import os, sys
+import os
 import requests
 import google.generativeai as genai
 
-# 1. Get environment variables set by GitHub Actions
-repo = os.getenv("GITHUB_REPOSITORY")     # e.g., "username/reponame"
-pr_number = os.getenv("PR_NUMBER")        # set in workflow
-token = os.getenv("GITHUB_TOKEN") # GitHub automatically provides this
+
+repo = os.getenv("GITHUB_REPOSITORY")
+pr_number = os.getenv("PR_NUMBER")
+token = os.getenv("GITHUB_TOKEN") 
+
+
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 model = genai.GenerativeModel("gemini-1.5-flash")
 
-# 2. GitHub API URL for the PR diff
+
 url = f"https://api.github.com/repos/{repo}/pulls/{pr_number}"
 
-headers = {
-    "Authorization": f"token {token}",
-    "Accept": "application/vnd.github.v3.diff"  # this gives us raw diff instead of JSON
-}
 
-# 3. Fetch the diff
+headers = {"Authorization": f"token {token}", "Accept": "application/vnd.github.v3.diff"}
+
+
 response = requests.get(url, headers=headers)
 
 if response.status_code == 200:
