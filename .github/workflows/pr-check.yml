@@ -44,7 +44,6 @@ jobs:
         uses: peter-evans/create-or-update-comment@v4
         with:
           issue-number: ${{ github.event.pull_request.number }}
-          token: ${{ secrets.BOT_GITHUB_TOKEN }}
           body: |
             🤖 **Gemini Review Output**
             ${{ steps.get_output.outputs.text }}
