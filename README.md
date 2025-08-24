@@ -23,14 +23,13 @@ This helps developers maintain high code quality, consistency, and prevents tedi
 
 ## Setup Guide
 
-1. Clone this repository or download it as a ZIP and extract it into your project ( you only need the .yml file and the main python script) .
-2. Copy the `.github/workflows/action.yml` workflow file into your repository of choice under `.github/workflows/`.
-3. Copy the `scripts/main.py` python script into your repository of choice under `scripts/`.
-4. Create a GitHub secret for your Gemini API key which you can find <a href="https://aistudio.google.com/app/apikey" target="_blank">here</a>:
+1. Copy the `.github/workflows/action.yml` workflow file into your repository of choice under `.github/workflows/`.
+2. Copy the `scripts/main.py` python script into your repository of choice under `scripts/`.
+3. Create a GitHub secret for your Gemini API key which you can find <a href="https://aistudio.google.com/app/apikey" target="_blank">here</a>:
    - Go to your repository **Settings > Secrets and variables > Actions**.
    - Add a new secret with the name: `GEMINI_API_KEY`.
    - Add your Gemini key in the provided section.
-5. Now whenever you open a pull request in this repository, the action will run and post a review in the comments of that pull request.
+4. Now whenever you open a pull request in this repository, the action will run and post a review in the comments of that pull request.
 
 
 
