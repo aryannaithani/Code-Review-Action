@@ -8,6 +8,19 @@ This helps developers maintain high code quality, consistency, and prevents tedi
 - Analyzes differences and then provide insights and suggestions for improvements.
 - Easy to integrate into any repository.
 
+## Example
+- **Some user forms a different branch and changes things and submits a pull request.**
+ 
+  <img src="assets/UISS1.png" alt="Step 1" width="600" />
+  
+- **On opening the pull request the action automatically starts doing its thing.**
+  
+  <img src="assets/UISS2.png" alt="Step 1" width="600"/>
+  
+- **After a few seconds an in depth and beautifully formatted review is posted in the pull request comments.**
+  
+  <img src="assets/UISS3.png" alt="Step 1" width="600"/>
+
 ## Setup Guide
 
 1. Clone this repository or download it as a ZIP and extract it into your project ( you only need the .yml file and the main python script) .
@@ -21,9 +34,7 @@ This helps developers maintain high code quality, consistency, and prevents tedi
 
 
 
-## Example
 
-When a pull request is created or updated, the AI Review Fin Action automatically runs and leaves a comment on the PR with AI-generated feedback.
 
 ## Contributing
-Feel free to open issues or pull requests to improve this project.
+Feel free to open issues or pull requests(which i will review using this action :)) to improve this project.
