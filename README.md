@@ -30,6 +30,7 @@ This helps developers maintain high code quality, consistency, and prevents tedi
    - Add a new secret with the name: `GEMINI_API_KEY`.
    - Add your Gemini key in the provided section.
 4. Now whenever you open a pull request in this repository, the action will run and post a review in the comments of that pull request.
+5. Thanks for visiting.
 
 
 
